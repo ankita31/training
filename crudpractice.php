@@ -64,7 +64,7 @@
 				// Random data
 				database.transaction(function(tx) {
 					tx.executeSql("INSERT INTO TEST_TABLE (id, text) VALUES (?, ?)", [num, document.querySelector('#items','#firstName').value], function(tx, result) {
-						log.innerHTML = '';
+						log.innerHTML = 'Firstname';
 						readRecord();
 					}, onError);
 				});
