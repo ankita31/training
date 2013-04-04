@@ -1,32 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 <title>test</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="./bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
-</head>
-<body data-spy="scroll" data-target=".navbar">...</body>
+<script>
+var db = null;
+function html5_storage_support() {
+  try {
+    return 'localStorage' in window && window['localStorage'] == null;
+  } catch (e) {
+    return false;
+  }
+}
+//CHECK TO SEE IF THE BROWSER IS COMPATIBLE 
+if (!html5_storage_support) {
+  alert("This Might Be a Good Time to Upgrade Your Browser or Turn On Jeavascript");
+} else {
+  
+	//OPEN AND OR CREATE THE DATABASE ON THE USERS MACHINE
+	db = openDatabase("MyContacts", "1", "My Personal Contacts", 100000);
+  
+	function storeMyContact(id) {
+		var fullname	= document.getElementById('fullname').innerHTML;
+		var phone		= document.getElementById('phone').innerHTML;
+		var email		= document.getElementById('email').innerHTML;
+		localStorage.setItem('mcFull',fullname);
+		localStorage.setItem('mcPhone',phone);
+		localStorage.setItem('mcEmail',email);
+	}
+  //GET STORED VALUES FROM KEYS TO DEFINE JAVASCRIPT VALUES OR DEFINE IF THEY DO NOT EXIST
+  function getMyContact() {
+    if ( localStorage.getItem('mcFull')) {
+      var fullname	= localStorage.getItem('mcFull');
+      var phone		= localStorage.getItem('mcPhone');
+      var email		= localStorage.getItem('mcEmail');
+    }
+    else {
+      var fullname	= 'Click And Enter A Name';
+      var phone		= 'Click And Enter A Phone Number';
+      var email		= 'Click And Enter An Email Address';
+    }
+    document.getElementById('fullname').innerHTML = fullname;
+    document.getElementById('phone').innerHTML = phone;
+    document.getElementById('email').innerHTML = email;
+  }
 
-  <div class="row-fluid span12">
-	<div class="span3">
-Level 1 column
-<form action="demo_form.asp" autocomplete="on">
-  First name:<input type="text" name="fname"><br>
-  Last name: <input type="text" name="lname"><br>
-  E-mail: <input type="email" name="email" autocomplete="off"><br>
-  <input type="submit">
-</form>
+  function clearLocal() {
+    clear: localStorage.clear(); 
+    return false;
+  }
+}
+</script>
+<div id="myContacts">
+  <div>N: <span id="fullname" contenteditable="true" onkeyup="storeMyContact(this.id)"></span></div>
+  <div>P: <span id="phone" contenteditable="true" onkeyup="storeMyContact(this.id)"></span></div>
+  <div>E: <span id="email" contenteditable="true" onkeyup="storeMyContact(this.id)"></span></div>
+  <div><a onclick="clearLocal(); getMyContact();" href="javascript:void(0);">Clear All Of My Data</a></div>
 </div>
-<div class="span3">
-	<form action="demo_form.asp">
-  E-mail: <input type="email" name="userid"><br>
-  <input type="submit" value="Submit"><br>
-  <input type="submit" formnovalidate value="Submit without validation">
-</form>
-</div>
-<script src="../js/jquerry.js"></script>
+<script>
+  getMyContact();
+</script>
+
+</body>
+</html>
+<script src="http://code.jquery.com/jquery.js"></script>
 <script src="./bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
-
