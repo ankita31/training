@@ -1,0 +1,112 @@
+<DOCTYPE html>
+	<html>
+		<head>
+			<title>test</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<!-- Bootstrap -->
+			<link href="./bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+			<script src="./js/jquerry.js"></script>
+			<script src="./bootstrap/js/bootstrap.js"></script>
+		</head>
+		<body>
+
+			<div id="message"></div>
+			<div class="formContainer">
+				<div class="layout">
+					<form id="localStorageForm" method="post" action="">
+						<label>First Name</label>
+						<input type="text" id="firstname" name="firstname" value="" class="input" />
+						<label>Surname</label>
+						<input type="text" id="surname" name="surname" value="" class="input" />
+						<label>Email</label>
+						<input type="text" id="email" name="email" value="" class="input" />
+						<label>Telephone</label>
+						<input type="text" id="telephone" name="telephone" value="" class="input" />
+						<input type="submit"  class="submit">
+					</form>
+
+					<input type="submit"  value="Clear Data" class="submit" id="clearData">
+
+				</div>
+			</div>
+
+		</body>
+
+		 
+		<script type="text/javascript">
+			$(document).ready(function() {
+				function loadData() {
+
+					/*
+					***We could write many lines of code here, but instead we will loop through
+					***each form field
+
+					if (localStorage["firstname"]) {
+					$('#firstname').val(localStorage["firstname"]);
+					}
+					if (localStorage["surname"]) {
+					$('#surname').val(localStorage["surname"]);
+					}
+					if (localStorage["email"]) {
+					$('#email').val(localStorage["email"]);
+					}
+					if (localStorage["email"]) {
+					$('#email').val(localStorage["email"]);
+					}
+					if (localStorage["telephone"]) {
+					$('#telephone').val(localStorage["telephone"]);
+					}
+					*/
+
+					// grab all the form fields and put into an array
+					var data = $("#localStorageForm").serializeArray();
+
+					// Loop through form field array
+					$.each(data, function(i, obj) {
+						$("[name='" + obj.name + "']").val(localStorage.getItem(obj.name));
+					});
+
+				}
+
+				loadData();
+			});
+
+			$('.input').keyup(function() {
+
+				// save a flag to let the user know there is saved data
+				localStorage.setItem("savedData", "true");
+
+				//Store the data
+				localStorage[$(this).attr('name')] = $(this).val();
+			});
+
+			//Please be aware that you will delete ALL stored data by calling localStorage.clear().
+			$('#clearData').click(function() {
+				localStorage.clear();
+				window.location.reload()
+
+			});
+
+			// If we have saved data then tell the user
+			if (localStorage.getItem("savedData") == "true") {
+
+				var data = $("#localStorageForm").serializeArray();
+
+				var savedData = '<p>This form has saved data!</p>';
+
+				//Here we use jquery to loop trough the saved data
+				$.each(data, function(i, obj) {
+
+					//Here we use the localstorage.getitem function, to retrive the stored data
+					if (localStorage.getItem(obj.name)) {
+						savedData = savedData + '<p>' + obj.name + ' = ' + localStorage.getItem(obj.name) + '</p>';
+					}
+				});
+
+				//Show the stored data
+				document.getElementById('message').innerHTML = savedData;
+
+			}
+
+		</script>
+	</html>
