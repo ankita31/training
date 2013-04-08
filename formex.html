@@ -60,9 +60,9 @@
 
 					db.transaction(function(t) {
 						t.executeSql(q, null, function(t, data) {
-							var html = "<table border='1'><th><tr><td>ID</td><th><td>Name</td><td>Age</td></tr>";
+							var html = "<table class='table table-bordered'><th><tr><td>ID</td><th><td>Name</td><td>Age</td></tr>";
 							for (var i = 0; i < data.rows.length; i++) {
-								html += "<table border ='1'><tr><td>" + data.rows.item(i).id + "</td><td>" + data.rows.item(i).name + "</td><td>" + data.rows.item(i).age + "</td></tr>";
+								html += "<table class='table table-bordered'><tr><td>" + data.rows.item(i).id + "</td><td>" + data.rows.item(i).name + "</td><td>" + data.rows.item(i).age + "</td></tr>";
 							}
 							html += "</table>";
 							var el = document.getElementById("main");
@@ -89,9 +89,9 @@
 	<body>
 		<fieldset>
 			<legend>
-				Web SQL Storage
+				CRUD FORM
 			</legend>
-			<h4>Insert Rows</h4>
+			
 			<span><label for="name">Name: </label>
 				<input type="text" id="name" />
 			</span>
@@ -100,7 +100,7 @@
 			</span>
 			<br />
 			<br />
-			<span> <a href="javascript:void(0);" class="btn" onclick="insert();">Insert</a> <a href="javascript:void(0);" class="btn" onclick="clearDB();">Clear</a> </span>
+			<span> <a href="javascript:void(0);" class="btn" onclick="insert();">Create record</a> <a href="javascript:void(0);" class="btn" onclick="clearDB();">Drop table</a> </span>
 		</fieldset>
 		<div id="main"></div>
 	</body>

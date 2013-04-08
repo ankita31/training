@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="./bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+
+        <script src="./js/jquerry.js"></script>
+		<script src="./bootstrap/js/bootstrap.js"></script>
+        <title>Web SQL Database Example</title>
+        <script src= "/js/app.js"></script>
+    </head>
+    <body>
+        
+
+            <fieldset>
+			<legend>
+				CRUD FORM
+			</legend>
+			
+			<span><label for="name">Name: </label>
+				<input type="text" id="name" />
+			</span>
+			<span><label for="age">Age: </label>
+				<input type="text" id="age" />
+			</span>
+			<br />
+			<br />
+			
+		</fieldset>
+
+            <div class="form-actions">
+                <button type="button" class="btn" onClick="insertRecord()">
+                    Create Record
+                </button>
+                <button type="button" class="btn" onClick="updateRecord()">
+                    Update Record
+                </button>
+                <button type="button" class="btn" onClick="dropTable()">
+                    Drop table
+                </button>
+            </div>
+            <div class="hidden" id="row_id"></div>
+           
+        </form>
+        <div id="results"></div>
+    </body>
+</html>
