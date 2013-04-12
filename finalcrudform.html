@@ -1,49 +1,82 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>test</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<title>test</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="./bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
-
-        <script src="./js/jquerry.js"></script>
+		<style type="text/css">
+			#tblSearch .pointer {
+				cursor: pointer;
+				background: #ccc;
+			}
+		</style>
+		<script src="./js/jquerry.js"></script>
 		<script src="./bootstrap/js/bootstrap.js"></script>
-        <title>Web SQL Database Example</title>
-        <script src= "/js/app.js"></script>
-    </head>
-    <body>
-        
-
-            <fieldset>
+		<title>Web SQL Database Example</title>
+		<script src= "/js/sorting.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/padolsey/jQuery-Plugins/master/sortElements/jquery.sortElements.js"></script>
+		<script src= "/js/app.js"></script>
+		<script src= "/js/img.js"></script>
+		<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.4.0.min.js"></script>
+	</head>
+	<body>
+		<fieldset>
 			<legend>
 				CRUD FORM
 			</legend>
-			
+
 			<span><label for="name">Name: </label>
 				<input type="text" id="name" />
 			</span>
 			<span><label for="age">Age: </label>
 				<input type="text" id="age" />
 			</span>
+			<span> <label for="gender">Gender:</label> <label class="radio">
+					<input type="radio" name="gender" id="op1" value="male" >
+					Male </label> <label class="radio">
+					<input type="radio" name="gender" id="op2" value="female">
+					Female </label> </span>
+			<div id="container"></div>
+			<!--<a href="#" data-role="button" onClick="save()">Submit</a>-->
+			<!--
+			<canvas id="container" width="200px" height="200px" style="border: solid;"></canvas>
+			-->
+			<button onclick=" loadImages(sources, initStage);">
+				Display Image
+			</button>
 			<br />
+			<h6>Please upload the image you wish to use.</h6>
+			<input id="photoin" type="file" >
+			</input>
 			<br />
-			
+
 		</fieldset>
 
-            <div class="form-actions">
-                <button type="button" class="btn" onClick="insertRecord()">
-                    Create Record
-                </button>
-                <button type="button" class="btn" onClick="updateRecord()">
-                    Update Record
-                </button>
-                <button type="button" class="btn" onClick="dropTable()">
-                    Drop table
-                </button>
-            </div>
-            <div class="hidden" id="row_id"></div>
-           
-        </form>
-        <div id="results"></div>
-    </body>
+		<div class="form-actions">
+			<button type="button" class="btn" onClick="insertRecord()">
+				Create Record
+			</button>
+			<button type="button" class="btn" onClick="updateRecord()">
+				Update Record
+			</button>
+			<button type="button" class="btn" onClick="dropTable()">
+				Drop table
+			</button>
+
+		</div>
+		<div class="hidden" id="row_id"></div>
+		<input type="search" id="search" placeholder="  live search">
+		</input>
+		<button name="count_table_rows" id="count_table_rows">
+			Count Table Rows
+		</button>
+		<button type="button" class="btn">
+			<a href="#"><i class=" icon-chevron-up" id="asc" onclick="sortTable()"></i> <a href="#"><i class=" icon-chevron-down" id="desc" onclick="sortTabledesc()"></i> sort table</a>
+		</button>
+
+		</form>
+		<div id="results"></div>
+	</body>
+
 </html>

@@ -7,6 +7,7 @@
 		<link href="./bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
 		<script src="./js/jquerry.js"></script>
 		<script src="./bootstrap/js/bootstrap.js"></script>
+		<script src="/js/pagination.js" type="text/javascript"></script>
 		<body>
 			<script>
 				var db = createTable();
@@ -82,6 +83,37 @@
 						selRows();
 					}
 				}
+      $(document).ready(function()
+{
+	$('#search').keyup(function()
+	{
+		searchTable($(this).val());
+	});
+});​
+
+function searchTable(inputVal)
+{
+	var table = $('#tblSearch');
+	table.find('td').each(function(index, row)
+	{
+		var allCells = $(row).find('td');
+		if(allCells.length > 0)
+		{
+			var found = false;
+			allCells.each(function(index, td)
+			{
+				var regExp = new RegExp(inputVal, 'i');
+				if(regExp.test($(td).text()))
+				{
+					found = true;
+					return false;
+				}
+			});
+			if(found == true)$(row).show();else $(row).hide();
+		}
+	});
+}
+ 
 
 			</script>
 
@@ -101,7 +133,9 @@
 			<br />
 			<br />
 			<span> <a href="javascript:void(0);" class="btn" onclick="insert();">Create record</a> <a href="javascript:void(0);" class="btn" onclick="clearDB();">Drop table</a> </span>
-		</fieldset>
+		 <label for="search"> <strong>Search Box</strong>
+            </label> <input type="text" id="search" />
+            </fieldset>
 		<div id="main"></div>
 	</body>
 </html>
