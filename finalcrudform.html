@@ -5,6 +5,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="./bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+				<style type="text/css">
+			.images {
+				height: 75px;
+				width: 75px;
+				border: 0px;
+				margin: 15px 15px 0 0;
+			}
+			table, td {
+				border-color: #e6e6e6;
+				border-style: solid;
+			}
+		</style>
+
 		<style type="text/css">
 			#tblSearch .pointer {
 				cursor: pointer;
@@ -12,71 +25,170 @@
 			}
 		</style>
 		<script src="./js/jquerry.js"></script>
+		<script type="text/javascript" src="./js/jquery.sortElements.js"></script>
+
 		<script src="./bootstrap/js/bootstrap.js"></script>
 		<title>Web SQL Database Example</title>
-		<script src= "/js/sorting.js"></script>
-		<script type="text/javascript" src="https://raw.github.com/padolsey/jQuery-Plugins/master/sortElements/jquery.sortElements.js"></script>
+
+		
 		<script src= "/js/app.js"></script>
-		<script src= "/js/img.js"></script>
+
+		<!--<script src= "/js/img.js"></script>-->
 		<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.4.0.min.js"></script>
+		<script type="text/javascript">
+			function imagesSelected(myFiles) {
+				console.log('enter here');
+				for (var i = 0, f; f = myFiles[i]; i++) {
+					var imageReader = new FileReader();
+					imageReader.onload = (function(aFile) {
+						return function(e) {
+							$('<span><span />').appendTo($('.imageUploaded')).addClass('imageUpload');
+							//$('.imageUpload').append('<img class="images" src="'+ e.target.result+'" title="'+ aFile.name+ '"/><br />');
+							$("<img>").appendTo($('.imageUpload')).addClass('images').attr('src', e.target.result).attr('title', aFile.name);
+
+							// var span = document.createElement('span');
+							// span.innerHTML = ['<img class="images" src="', e.target.result,'" title="', aFile.name, '"/><br />'].join('');
+							// document.getElementById('thumbs').insertBefore(span, null);
+						};
+					})(f);
+					imageReader.readAsDataURL(f);
+				}
+			}
+
+			function dropIt(e) {
+				imagesSelected(e.dataTransfer.files);
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		</script>
 	</head>
 	<body>
 		<fieldset>
-			<legend>
-				CRUD FORM
-			</legend>
+			<div class="row">
+				<div class="span12">
+					<legend>
+						EMPLOYEE DETAIL FORM
+						<input type="search" id="search" placeholder="Search Employee">
+						</input>
+					</legend>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span 9">
+					<label for="name">Employee Name: </label>
+					<input type="text" id="name" />
+					<label for="empid">Employee Id: </label>
+					<input type="text" id="empid" />
 
-			<span><label for="name">Name: </label>
-				<input type="text" id="name" />
-			</span>
-			<span><label for="age">Age: </label>
-				<input type="text" id="age" />
-			</span>
-			<span> <label for="gender">Gender:</label> <label class="radio">
-					<input type="radio" name="gender" id="op1" value="male" >
-					Male </label> <label class="radio">
-					<input type="radio" name="gender" id="op2" value="female">
-					Female </label> </span>
-			<div id="container"></div>
-			<!--<a href="#" data-role="button" onClick="save()">Submit</a>-->
-			<!--
-			<canvas id="container" width="200px" height="200px" style="border: solid;"></canvas>
-			-->
-			<button onclick=" loadImages(sources, initStage);">
-				Display Image
-			</button>
-			<br />
-			<h6>Please upload the image you wish to use.</h6>
-			<input id="photoin" type="file" >
-			</input>
-			<br />
+					<label for="email">Email: </label>
+					<input type="text" id="email" />
 
+					<label for="age">Age: </label>
+					<input type="text" id="age" />
+
+					<label for="gender">Gender:</label><label class="radio">
+						<input type="radio" name="gender" id="op1" value="male" >
+						Male </label><label class="radio">
+						<input type="radio" name="gender" id="op2" value="female">
+						Female </label>
+					<!--
+					<label>EmpTitle: </label>
+					<input type = "checkbox"
+					id = "trainee"
+					value = "Trainee" />
+					<label for="trainee">Trainee: </label>
+					<input type = "checkbox"
+					id = "Team leader"
+					value = "team lead" />
+					<label for="team lead">Team leader: </label>
+					<input type = "checkbox"
+					id = "Senior"
+					value = "senior" />
+					<label for="senior">Senior: </label>
+					-->
+
+					<label for="salary">Salary: </label>
+					<input type="text" id="salary" />
+					<label for="joiningdate">Date of joining : </label>
+					<input id="joiningdate" type="date" value=""/>
+					</br>
+                    <label for="image">Upload Image</label>
+					<input type="file" id="photo" size="10" multiple="true" onchange="imagesSelected(this.files)" />
+                    
+					<!--<div id="container"></div>-->
+					<!--<a href="#" data-role="button" onClick="save()">Submit</a>-->
+					<!--
+					<canvas id="container" width="200px" height="200px" style="border: solid;"></canvas>
+					-->
+					<!--
+					<button onclick=" loadImages(sources, initStage);">
+					Display Image
+
+					</button>-->
+
+				</div>
+
+				<div class="span3">
+					<table width="120" border="1" cellspacing=0 cellpadding=5>
+						<tr bgcolor="#F2F2F2">
+							<td class="tableheader" align="left">
+							<p>
+								Employee Image
+							</p></td>
+						</tr>
+						<tr>
+							<td class="imageUploaded" align="left" height="100" ondragenter="return false" ondragover="return false" ondrop="dropIt(event)"><output id="thumbs"></output></td>
+						</tr>
+				</div>
+				<!--
+				<tr>
+
+				<td align="center">
+				<p>
+
+				Drag & drop or choose images from your local file system:
+				<input type="file" id="input" size="10" multiple="true" onchange="imagesSelected(this.files)" />
+				</p></td>
+
+				</tr>-->
+
+				</table>
+			</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+					<div class="span 4">
+
+						<button type="button" class="btn" onClick="insertRecord()">
+							Create Record
+						</button>
+					</div>
+					<div class="span 4">
+						<button type="button" class="btn" onClick="updateRecord()">
+							Update Record
+						</button>
+					</div>
+					<div class="span 4">
+						<button type="button" class="btn" onClick="dropTable()">
+							Drop table
+						</button>
+					</div>
+
+					<div class="hidden" id="row_id"></div>
+					<!--
+					<button name="count_table_rows" id="count_table_rows">
+					Count Table Rows
+					</button>
+					<button type="button" class="btn">
+					<a href="#"><i class=" icon-chevron-up" id="asc" onclick="sortTable()"></i> <a href="#"><i class=" icon-chevron-down" id="desc" onclick="sortTabledesc()"></i> sort table</a>
+					</button>
+					-->
+
+					</form>
+				</div>
+			</div>
+			<div id="results"></div>
 		</fieldset>
-
-		<div class="form-actions">
-			<button type="button" class="btn" onClick="insertRecord()">
-				Create Record
-			</button>
-			<button type="button" class="btn" onClick="updateRecord()">
-				Update Record
-			</button>
-			<button type="button" class="btn" onClick="dropTable()">
-				Drop table
-			</button>
-
-		</div>
-		<div class="hidden" id="row_id"></div>
-		<input type="search" id="search" placeholder="  live search">
-		</input>
-		<button name="count_table_rows" id="count_table_rows">
-			Count Table Rows
-		</button>
-		<button type="button" class="btn">
-			<a href="#"><i class=" icon-chevron-up" id="asc" onclick="sortTable()"></i> <a href="#"><i class=" icon-chevron-down" id="desc" onclick="sortTabledesc()"></i> sort table</a>
-		</button>
-
-		</form>
-		<div id="results"></div>
 	</body>
 
 </html>
